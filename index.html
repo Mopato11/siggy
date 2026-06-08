@@ -9,7 +9,7 @@
             --neon-green: #00ff66;
             --dark-bg: #030a05;
             --card-bg: rgba(0, 15, 5, 0.6);
-            --glow-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
+            --glow-shadow: 0 0 25px rgba(0, 255, 102, 0.4);
             --text-glow: 0 0 15px rgba(0, 255, 102, 0.6);
         }
 
@@ -17,7 +17,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Courier New', Courier, monospace; /* طابع تقني كلاسيكي */
+            font-family: 'Courier New', Courier, monospace;
         }
 
         body {
@@ -118,14 +118,14 @@
             margin-bottom: 30px;
         }
 
-        /* NFT Showcase Grid Layout */
+        /* NFT Container Layout */
         .nft-container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 50px;
+            gap: 70px;
             padding: 0 20px;
         }
 
@@ -139,43 +139,66 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            gap: 50px;
+            gap: 80px;
             flex-wrap: wrap;
         }
 
-        /* Card Styling & Neon Framing */
+        /* Card Styling - Modified to allow candle positioning */
         .nft-card {
             background: var(--card-bg);
-            border: 1px solid rgba(0, 255, 102, 0.2);
-            padding: 15px;
+            border: 1px solid rgba(0, 255, 102, 0.25);
+            padding: 20px;
             border-radius: 4px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: var(--glow-shadow), inset 0 0 15px rgba(0, 255, 102, 0.1);
+            box-shadow: var(--glow-shadow), inset 0 0 20px rgba(0, 255, 102, 0.15);
             position: relative;
             max-width: 380px;
             width: 100%;
             transition: transform 0.3s ease;
+            overflow: visible; /* تعديل: للسماح للشموع بالخروج عن حواف الكرت */
+            margin: 0 20px;
         }
 
         .nft-card:hover {
             transform: scale(1.02);
         }
 
-        /* Candles / Lights Effect on Borders */
-        .nft-card::before, .nft-card::after {
+        /* تعديل الشموع: أكبر وموضعة في الحافة السفلية */
+        .candle {
+            position: absolute;
+            bottom: 0; /* تم التعديل: تثبيت على الحافة السفلية */
+            width: 12px; /* تم التعديل: تكبير العرض */
+            height: 60px; /* تم التعديل: تكبير الطول */
+            background: linear-gradient(to top, #e0e0e0, #ffffff);
+            border-radius: 4px 4px 0 0;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+        }
+
+        .candle.left { left: -12px; } /* تم التعديل: ترحيل للخارج */
+        .candle.right { right: -12px; }
+
+        /* لهب الشمعة */
+        .candle::before {
             content: '';
             position: absolute;
-            bottom: 35%;
-            width: 6px;
-            height: 35px;
-            background: #ffffff;
-            border-radius: 3px;
-            box-shadow: 0 0 15px #ffffff, 0 -5px 10px var(--neon-green);
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 20px;
+            background: var(--neon-green);
+            border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+            box-shadow: 0 0 15px var(--neon-green), 0 0 25px var(--neon-green);
+            animation: flicker 1.2s infinite ease-in-out alternate;
         }
-        .nft-card::before { left: -3px; }
-        .nft-card::after { right: -3px; }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) rotate(-2deg); opacity: 0.9; }
+            100% { transform: translateX(-50%) rotate(2deg); opacity: 1; }
+        }
 
         .image-container {
             width: 100%;
@@ -189,7 +212,6 @@
             position: relative;
         }
 
-        /* Placeholder styles if images are not loaded yet */
         .image-placeholder {
             width: 100%;
             height: 100%;
@@ -240,7 +262,6 @@
             letter-spacing: 6px;
         }
 
-        /* Footer & Quote */
         .quote-container {
             margin-top: 60px;
             margin-bottom: 50px;
@@ -258,17 +279,15 @@
             text-transform: uppercase;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .main-title { font-size: 2.5rem; }
-            .bottom-row { gap: 30px; }
-            .nft-card::before, .nft-card::after { display: none; } /* Remove lights on small screens */
+            .bottom-row { gap: 40px; }
+            .candle { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
     <header>
         <div class="logo">♦ R I T U A L</div>
         <div class="nav-right">
@@ -282,20 +301,17 @@
         </div>
     </header>
 
-    <!-- Main Title -->
     <div class="hero-section">
         <p class="subtitle">- RITUAL TESTNET COLLECTION -</p>
         <h1 class="main-title">SIGGY SOUL</h1>
     </div>
 
-    <!-- NFTs Grid -->
     <div class="nft-container">
-        
-        <!-- Top Row: Card 1 (Born in the Dark) -->
         <div class="top-row">
             <div class="nft-card">
+                <div class="candle left"></div>
+                <div class="candle right"></div>
                 <div class="image-container">
-                    <!-- استبدل src="born_in_the_dark.jpg" برابط صورتك الحقيقية لاحقاً -->
                     <img src="born_in_the_dark.jpg" alt="Born in the Dark" class="nft-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                     <div class="image-placeholder" style="display:none;">
                         <span>SIGGY SOUL</span>
@@ -307,12 +323,11 @@
             </div>
         </div>
 
-        <!-- Bottom Row: Card 2 & Card 3 -->
         <div class="bottom-row">
-            <!-- Card 2 (The Green Miasma) -->
             <div class="nft-card">
+                <div class="candle left"></div>
+                <div class="candle right"></div>
                 <div class="image-container">
-                    <!-- استبدل src="the_green_miasma.jpg" برابط صورتك الحقيقية لاحقاً -->
                     <img src="the_green_miasma.jpg" alt="The Green Miasma" class="nft-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                     <div class="image-placeholder" style="display:none;">
                         <span>SIGGY SOUL</span>
@@ -323,10 +338,10 @@
                 <button class="mint-btn">MINT</button>
             </div>
 
-            <!-- Card 3 (Shadow of Siggy) -->
             <div class="nft-card">
+                <div class="candle left"></div>
+                <div class="candle right"></div>
                 <div class="image-container">
-                    <!-- استبدل src="shadow_of_siggy.jpg" برابط صورتك الحقيقية لاحقاً -->
                     <img src="shadow_of_siggy.jpg" alt="Shadow of Siggy" class="nft-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                     <div class="image-placeholder" style="display:none;">
                         <span>SIGGY SOUL</span>
@@ -337,21 +352,17 @@
                 <button class="mint-btn">MINT</button>
             </div>
         </div>
-
     </div>
 
-    <!-- Quote Section -->
     <div class="quote-container">
         <p>"EVREY SOUL MUST JOIN THE RITUAL."</p>
     </div>
 
-    <!-- Footer -->
     <footer>
         * MADE BY LiTEino *
     </footer>
 
     <script>
-        // كود بسيط لربط المحفظة بشكل تجريبي عند الضغط على الأزرار
         document.querySelectorAll('.mint-btn, .connect-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 alert('Connecting to Ritual Testnet...');
